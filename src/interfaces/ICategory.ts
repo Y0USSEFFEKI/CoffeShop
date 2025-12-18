@@ -17,4 +17,6 @@ export interface CategoryListProps {
 	categories: CategoryItem[];
 	onSelect: (id: string) => void;
 	style?: object;
+	itemStyle?: object;
+	contentContainerStyle?: object;
 }

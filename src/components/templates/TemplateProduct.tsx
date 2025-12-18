@@ -10,10 +10,10 @@ import Button from '../atoms/Button';
 import Image from '../atoms/Image';
 import Texte from '../atoms/Texte';
 import Category from '../molecules/Category';
-import CategoryList from '../organisms/CategoryList';
+import LevelSelector from '../molecules/LevelSelector';
 import {CategoryItem} from '../../interfaces/ICategory';
 
-interface TemplateProductProps {
+export interface TemplateProductProps {
 	productImage: ImageSourcePropType;
 	title: string;
 	subtitle?: string;
@@ -103,17 +103,17 @@ const TemplateProduct: React.FC<TemplateProductProps> = ({
 
 					<View style={styles.card}>
 						<Texte style={styles.sectionTitle}>Cup Size</Texte>
-						<CategoryList
-							categories={sizeOptions}
+						<LevelSelector
+							options={sizeOptions}
 							onSelect={onSelectSize}
-							style={styles.categoryList}
+							style={styles.selector}
 						/>
 
 						<Texte style={styles.sectionTitle}>Level Sugar</Texte>
-						<CategoryList
-							categories={sugarOptions}
+						<LevelSelector
+							options={sugarOptions}
 							onSelect={onSelectSugar}
-							style={styles.categoryList}
+							style={styles.selector}
 						/>
 
 						<Texte style={styles.sectionTitle}>About</Texte>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
 	},
 	heroImage: {
 		width: '100%',
-		height: '100%',
+		height: '110%',
 	},
 	heroOverlay: {
 		...StyleSheet.absoluteFillObject,
@@ -182,11 +182,13 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'flex-end',
+		marginBottom: 10,
 	},
 	title: {
 		fontSize: 24,
-		fontWeight: '700',
+		fontWeight: '600',
 		color: '#FFFFFF',
+		fontFamily: 'Montserrat',
 	},
 	subtitle: {
 		marginTop: 4,
@@ -205,12 +207,13 @@ const styles = StyleSheet.create({
 	},
 	card: {
 		backgroundColor: '#FFFFFF',
-		borderTopLeftRadius: 24,
-		borderTopRightRadius: 24,
+		borderTopLeftRadius:30,
+		borderTopRightRadius: 30,
 		marginTop: -24,
 		paddingTop: 24,
 		paddingHorizontal: 20,
 		paddingBottom: 24,
+
 	},
 	sectionTitle: {
 		fontSize: 16,
@@ -218,7 +221,7 @@ const styles = StyleSheet.create({
 		color: '#1A1A1A',
 		marginBottom: 12,
 	},
-	categoryList: {
+	selector: {
 		marginBottom: 18,
 	},
 	aboutText: {

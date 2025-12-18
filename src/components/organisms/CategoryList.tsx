@@ -6,14 +6,20 @@ import {CategoryListProps} from '../../interfaces/ICategory';
 /**
  * Organisme qui affiche une liste horizontale de catégories.
  */
-const CategoryList: React.FC<CategoryListProps> = ({categories, onSelect, style}) => {
+const CategoryList: React.FC<CategoryListProps> = ({
+	categories,
+	onSelect,
+	style,
+	itemStyle,
+	contentContainerStyle,
+}) => {
 	return (
 		<View style={style}>
 			<FlatList
 				data={categories}
 				horizontal
 				showsHorizontalScrollIndicator={false}
-				contentContainerStyle={styles.listContent}
+				contentContainerStyle={[styles.listContent, contentContainerStyle]}
 				ItemSeparatorComponent={() => <View style={styles.separator} />}
 				keyExtractor={item => item.id}
 				renderItem={({item}) => (
@@ -22,6 +28,7 @@ const CategoryList: React.FC<CategoryListProps> = ({categories, onSelect, style}
 						iconName={item.iconName}
 						selected={item.selected}
 						onPress={() => onSelect(item.id)}
+						style={itemStyle}
 					/>
 				)}
 			/>

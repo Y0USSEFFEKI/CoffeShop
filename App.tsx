@@ -15,6 +15,8 @@ import { useEffect } from 'react';
 import BootSplash from "react-native-bootsplash";
 import Home from './src/components/pages/Home';
 import Product from './src/components/pages/Product';
+import Favorite from './src/components/pages/Favorite';
+import Cart from './src/components/pages/Cart';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -45,7 +47,9 @@ function AppContent() {
     <View style={styles.container}>
       {/* <Acceuil></Acceuil> */}
       {/* <Home></Home> */}
-      <Product></Product>
+      {/* <Product></Product> */}
+      {/* <Favorite></Favorite> */}
+      <Cart></Cart>
     </View>
   );
 }
