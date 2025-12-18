@@ -44,7 +44,14 @@ const initialPayments: PaymentMethod[] = [
 
 const formatRupiah = (value: number) => `Rp ${value.toLocaleString('id-ID')}`;
 
-const Cart: React.FC = () => {
+interface CartProps {
+	onGoHome?: () => void;
+	onGoFavorites?: () => void;
+	onGoCart?: () => void;
+	onGoProfile?: () => void;
+}
+
+const Cart: React.FC<CartProps> = ({onGoHome, onGoFavorites, onGoCart, onGoProfile}) => {
 	const [items, setItems] = useState<CartItem[]>(initialItems);
 	const [payments, setPayments] = useState<PaymentMethod[]>(initialPayments);
 
@@ -92,10 +99,10 @@ const Cart: React.FC = () => {
 			onToggleFavorite={handleToggleFavorite}
 			onCheckout={() => console.log('Checkout')}
 			activeTab="cart"
-			onPressHome={() => console.log('Home')}
-			onPressFavorites={() => console.log('Favorites')}
-			onPressCart={() => console.log('Cart')}
-			onPressProfile={() => console.log('Profile')}
+			onPressHome={() => (onGoHome ? onGoHome() : console.log('Home'))}
+			onPressFavorites={() => (onGoFavorites ? onGoFavorites() : console.log('Favorites'))}
+			onPressCart={() => (onGoCart ? onGoCart() : console.log('Cart'))}
+			onPressProfile={() => (onGoProfile ? onGoProfile() : console.log('Profile'))}
 		/>
 	);
 };

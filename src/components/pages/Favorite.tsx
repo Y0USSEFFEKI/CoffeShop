@@ -58,7 +58,19 @@ const initialFavorites: ProductItem[] = [
 	},
 ];
 
-const Favorite: React.FC = () => {
+interface FavoriteProps {
+	onGoHome?: () => void;
+	onGoFavorites?: () => void;
+	onGoCart?: () => void;
+	onGoProfile?: () => void;
+}
+
+const Favorite: React.FC<FavoriteProps> = ({
+	onGoHome,
+	onGoFavorites,
+	onGoCart,
+	onGoProfile,
+}) => {
 	const [products, setProducts] = useState<ProductItem[]>(initialFavorites);
 
 	const handleToggleFavorite = (id: string) => {
@@ -74,10 +86,10 @@ const Favorite: React.FC = () => {
 			products={products}
 			onToggleFavorite={handleToggleFavorite}
 			activeTab="favorites"
-			onPressHome={() => console.log('Home')}
-			onPressFavorites={() => console.log('Favorites')}
-			onPressCart={() => console.log('Cart')}
-			onPressProfile={() => console.log('Profile')}
+			onPressHome={() => (onGoHome ? onGoHome() : console.log('Home'))}
+			onPressFavorites={() => (onGoFavorites ? onGoFavorites() : console.log('Favorites'))}
+			onPressCart={() => (onGoCart ? onGoCart() : console.log('Cart'))}
+			onPressProfile={() => (onGoProfile ? onGoProfile() : console.log('Profile'))}
 		/>
 	);
 };

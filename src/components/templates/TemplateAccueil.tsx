@@ -87,7 +87,7 @@ const TemplateAccueil: React.FC<TemplateAccueilProps> = ({
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#B08149',
+		backgroundColor: '#D7A870',
 	},
 	backgroundImage: {
 		flex: 1,
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginBottom: 24,
 		paddingHorizontal: 20,
+		width: 278,
 	},
 	headline: {
 		fontSize: 32,
@@ -160,11 +161,12 @@ const styles = StyleSheet.create({
 		opacity: 1,
 	},
 	indicatorActive: {
-		backgroundColor: '#2D5016',
+		backgroundColor: '#00512C',
+		width: 18,
 	},
 	indicatorInactive: {
 		backgroundColor: '#FFFFFF',
-		width: 12,
+		width: 6,
 	},
 	buttonContainer: {
 		width: '100%',

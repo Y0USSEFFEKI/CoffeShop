@@ -6,15 +6,13 @@
  */
 
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Acceuil from './src/components/pages/Acceuil';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import BootSplash from "react-native-bootsplash";
 import Home from './src/components/pages/Home';
-import Product from './src/components/pages/Product';
+import Login from './src/components/pages/Login';
+import Signup from './src/components/pages/Signup';
 import Favorite from './src/components/pages/Favorite';
 import Cart from './src/components/pages/Cart';
 
@@ -41,15 +39,38 @@ function App() {
 }
 
 function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+  const [screen, setScreen] = useState<'acceuil' | 'login' | 'signup' | 'home' | 'favorite' | 'cart'>('acceuil');
 
   return (
     <View style={styles.container}>
-      {/* <Acceuil></Acceuil> */}
-      {/* <Home></Home> */}
-      {/* <Product></Product> */}
-      {/* <Favorite></Favorite> */}
-      <Cart></Cart>
+      {screen === 'acceuil' && <Acceuil onGetStarted={() => setScreen('login')} />}
+      {screen === 'login' && (
+        <Login onLoginSuccess={() => setScreen('home')} onGoToSignup={() => setScreen('signup')} />
+      )}
+      {screen === 'signup' && (
+        <Signup onSignupSuccess={() => setScreen('home')} onGoToLogin={() => setScreen('login')} />
+      )}
+      {screen === 'home' && (
+        <Home
+          onGoHome={() => setScreen('home')}
+          onGoFavorites={() => setScreen('favorite')}
+          onGoCart={() => setScreen('cart')}
+        />
+      )}
+      {screen === 'favorite' && (
+        <Favorite
+          onGoHome={() => setScreen('home')}
+          onGoFavorites={() => setScreen('favorite')}
+          onGoCart={() => setScreen('cart')}
+        />
+      )}
+      {screen === 'cart' && (
+        <Cart
+          onGoHome={() => setScreen('home')}
+          onGoFavorites={() => setScreen('favorite')}
+          onGoCart={() => setScreen('cart')}
+        />
+      )}
     </View>
   );
 }

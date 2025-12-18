@@ -1,10 +1,17 @@
 import React from 'react';
 import TemplateAccueil from '../templates/TemplateAccueil';
 
-const Acceuil: React.FC = () => {
+interface AcceuilProps {
+	onGetStarted?: () => void;
+}
+
+const Acceuil: React.FC<AcceuilProps> = ({onGetStarted}) => {
 	const handleGetStarted = () => {
-		// Navigation ou action à implémenter
-		console.log('Get started pressed');
+		if (onGetStarted) {
+			onGetStarted();
+		} else {
+			console.log('Get started pressed');
+		}
 	};
 
 	return (
@@ -13,7 +20,6 @@ const Acceuil: React.FC = () => {
 			subheadline="The best grain, the finest roast, the most powerful flavor."
 			activePage={1}
 			onGetStarted={handleGetStarted}
-			// backgroundSource, logoSource, heroSource peuvent être surchargés si besoin
 		/>
 	);
 };

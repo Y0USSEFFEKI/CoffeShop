@@ -110,7 +110,7 @@ export const Button: React.FC<IBoutton> = ({
 
 const styles = StyleSheet.create({
 	button: {
-		borderRadius: 8,
+		borderRadius: 30,
 		justifyContent: 'center',
 		alignItems: 'center',
 		shadowColor: '#000',

@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import {PermissionsAndroid, Platform} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 import TemplateHome from '../templates/TemplateHome';
 import {CategoryItem} from '../../interfaces/ICategory';
 import {ProductItem} from '../../interfaces/IProduct';
@@ -62,10 +64,18 @@ const fallbackOffers: ProductItem[] = [
 	},
 ];
 
-const Home: React.FC = () => {
+interface HomeProps {
+	onGoHome?: () => void;
+	onGoFavorites?: () => void;
+	onGoCart?: () => void;
+	onGoProfile?: () => void;
+}
+
+const Home: React.FC<HomeProps> = ({onGoHome, onGoFavorites, onGoCart, onGoProfile}) => {
 	const [search, setSearch] = useState('');
 	const [categories, setCategories] = useState<CategoryItem[]>(fallbackCategories);
 	const [specialOffers, setSpecialOffers] = useState<ProductItem[]>(fallbackOffers);
+	const [locationLabel, setLocationLabel] = useState('Locating...');
 
 	const handleSelectCategory = (id: string) => {
 		setCategories(prev =>
@@ -125,6 +135,55 @@ const Home: React.FC = () => {
 
 		fetchCategories();
 		fetchProducts();
+
+		const requestPermission = async () => {
+			if (Platform.OS !== 'android') {
+				return true;
+			}
+			try {
+				const granted = await PermissionsAndroid.request(
+					PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+					{
+						title: 'Location Permission',
+						message: 'We need your location to show it on the home screen.',
+						buttonNeutral: 'Ask Me Later',
+						buttonNegative: 'Cancel',
+						buttonPositive: 'OK',
+					},
+				);
+				return granted === PermissionsAndroid.RESULTS.GRANTED;
+			} catch (err) {
+				console.error('Permission error', err);
+				return false;
+			}
+		};
+
+		const fetchLocation = async () => {
+			const hasPermission = await requestPermission();
+			if (!hasPermission) {
+				setLocationLabel('Jakarta, Indonesia');
+				return;
+			}
+
+			Geolocation.getCurrentPosition(
+				position => {
+					const {latitude, longitude} = position.coords;
+					setLocationLabel(`${latitude.toFixed(3)}, ${longitude.toFixed(3)}`);
+				},
+				error => {
+					console.error('Location error', error);
+					setLocationLabel('Jakarta, Indonesia');
+				},
+				{
+					enableHighAccuracy: true,
+					timeout: 15000,
+					maximumAge: 10000,
+					forceRequestLocation: true,
+				},
+			);
+		};
+
+		fetchLocation();
 	}, []);
 
 	const handleAddProduct = (id: string) => {
@@ -143,7 +202,7 @@ const Home: React.FC = () => {
 		<TemplateHome
 			userName="Yudi"
 			profileImage={profileImage}
-			locationLabel="Jakarta, Indonesia"
+			locationLabel={locationLabel}
 			searchValue={search}
 			onSearchChange={setSearch}
 			onFilterPress={() => console.log('Filter pressed')}
@@ -155,10 +214,10 @@ const Home: React.FC = () => {
 			onToggleFavorite={handleToggleFavorite}
 			onPressNotification={() => console.log('Notifications')}
 			activeTab="home"
-			onPressHome={() => console.log('Home')}
-			onPressFavorites={() => console.log('Favorites')}
-			onPressCart={() => console.log('Cart')}
-			onPressProfile={() => console.log('Profile')}
+			onPressHome={() => (onGoHome ? onGoHome() : console.log('Home'))}
+			onPressFavorites={() => (onGoFavorites ? onGoFavorites() : console.log('Favorites'))}
+			onPressCart={() => (onGoCart ? onGoCart() : console.log('Cart'))}
+			onPressProfile={() => (onGoProfile ? onGoProfile() : console.log('Profile'))}
 		/>
 	);
 };
