@@ -6,7 +6,11 @@ const productImage = {
 	uri: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80',
 };
 
-const Product: React.FC = () => {
+interface ProductPageProps {
+	onGoBack?: () => void;
+}
+
+const Product: React.FC<ProductPageProps> = ({onGoBack}) => {
 	const [sizes, setSizes] = useState<CategoryItem[]>([
 		{id: 'small', label: 'Small', selected: true},
 		{id: 'medium', label: 'Medium', selected: false},
@@ -49,7 +53,7 @@ const Product: React.FC = () => {
 			sugarOptions={sugars}
 			onSelectSize={handleSelectSize}
 			onSelectSugar={handleSelectSugar}
-			onPressBack={() => console.log('Back')}
+			onPressBack={() => (onGoBack ? onGoBack() : console.log('Back'))}
 			onToggleFavorite={() => console.log('Favorite')}
 			onAddToCart={() => console.log('Add to cart')}
 		/>

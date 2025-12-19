@@ -9,6 +9,7 @@ import {ProductListProps} from '../../interfaces/IProduct';
 const ProductList: React.FC<ProductListProps> = ({
 	products,
 	onAction,
+	onPressProduct,
 	style,
 	listVariant = 'horizontal',
 	actionVariant = 'add',
@@ -40,6 +41,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						isFavorite={item.isFavorite}
 						actionVariant={actionVariant}
 						onAction={onAction ? () => onAction(item.id) : undefined}
+						onPress={onPressProduct ? () => onPressProduct(item.id) : undefined}
 						style={isGrid ? styles.cardGrid : styles.cardHorizontal}
 					/>
 				)}

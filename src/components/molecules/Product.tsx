@@ -15,6 +15,7 @@ const Product: React.FC<ProductProps> = ({
 	image,
 	isFavorite,
 	onAction,
+	onPress,
 	actionVariant = 'add',
 	style,
 }) => {
@@ -30,8 +31,21 @@ const Product: React.FC<ProductProps> = ({
 	const actionButtonStyle =
 		actionVariant === 'favorite' ? styles.favoriteButton : styles.addButton;
 
+	const CardWrapper: React.FC<{children: React.ReactNode}> = ({children}) =>
+		onPress ? (
+			<TouchableOpacity
+				activeOpacity={0.9}
+				onPress={onPress}
+				style={[styles.container, style]}
+			>
+				{children}
+			</TouchableOpacity>
+		) : (
+			<View style={[styles.container, style]}>{children}</View>
+		);
+
 	return (
-		<View style={[styles.container, style]}>
+		<CardWrapper>
 			<Image source={image} style={styles.image} resizeMode="cover" useBaseStyle={false} />
 
 			<View style={styles.textBlock}>
@@ -52,7 +66,7 @@ const Product: React.FC<ProductProps> = ({
 					</TouchableOpacity>
 				) : null}
 			</View>
-		</View>
+		</CardWrapper>
 	);
 };
 

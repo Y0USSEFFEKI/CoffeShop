@@ -31,6 +31,7 @@ interface TemplateHomeProps {
 	onAddProduct: (id: string) => void;
 	specialOffers: ProductItem[];
 	onToggleFavorite?: (id: string) => void;
+	onPressProduct?: (id: string) => void;
 	activeTab?: 'home' | 'favorites' | 'cart' | 'profile';
 	onPressNotification?: () => void;
 	onPressHome?: () => void;
@@ -57,6 +58,7 @@ const TemplateHome: React.FC<TemplateHomeProps> = props => {
 		onAddProduct,
 		specialOffers,
 		onToggleFavorite,
+		onPressProduct,
 		activeTab = 'home',
 		onPressNotification,
 		onPressHome,
@@ -127,6 +129,7 @@ const TemplateHome: React.FC<TemplateHomeProps> = props => {
 						onAction={onAddProduct}
 						listVariant="horizontal"
 						actionVariant="add"
+						onPressProduct={onPressProduct}
 						style={styles.featuredList}
 					/>
 
@@ -139,6 +142,7 @@ const TemplateHome: React.FC<TemplateHomeProps> = props => {
 						onAction={onToggleFavorite}
 						listVariant="grid"
 						actionVariant="favorite"
+						onPressProduct={onPressProduct}
 						style={styles.offerList}
 					/>
 				</ScrollView>

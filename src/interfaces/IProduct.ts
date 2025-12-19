@@ -14,6 +14,7 @@ export type ProductListVariant = 'horizontal' | 'grid';
 
 export interface ProductProps extends Omit<ProductItem, 'id'> {
 	onAction?: () => void;
+	onPress?: () => void;
 	actionVariant?: ProductActionVariant;
 	style?: object;
 }
@@ -21,6 +22,7 @@ export interface ProductProps extends Omit<ProductItem, 'id'> {
 export interface ProductListProps {
 	products: ProductItem[];
 	onAction?: (id: string) => void;
+	onPressProduct?: (id: string) => void;
 	style?: object;
 	listVariant?: ProductListVariant;
 	actionVariant?: ProductActionVariant;

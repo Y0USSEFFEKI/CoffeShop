@@ -15,6 +15,7 @@ import Login from './src/components/pages/Login';
 import Signup from './src/components/pages/Signup';
 import Favorite from './src/components/pages/Favorite';
 import Cart from './src/components/pages/Cart';
+import Product from './src/components/pages/Product';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -39,7 +40,7 @@ function App() {
 }
 
 function AppContent() {
-  const [screen, setScreen] = useState<'acceuil' | 'login' | 'signup' | 'home' | 'favorite' | 'cart'>('acceuil');
+  const [screen, setScreen] = useState<'acceuil' | 'login' | 'signup' | 'home' | 'favorite' | 'cart' | 'product'>('acceuil');
 
   return (
     <View style={styles.container}>
@@ -55,6 +56,7 @@ function AppContent() {
           onGoHome={() => setScreen('home')}
           onGoFavorites={() => setScreen('favorite')}
           onGoCart={() => setScreen('cart')}
+          onGoProduct={() => setScreen('product')}
         />
       )}
       {screen === 'favorite' && (
@@ -71,6 +73,7 @@ function AppContent() {
           onGoCart={() => setScreen('cart')}
         />
       )}
+      {screen === 'product' && <Product onGoBack={() => setScreen('home')} />}
     </View>
   );
 }

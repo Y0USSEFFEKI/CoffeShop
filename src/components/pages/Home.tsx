@@ -69,9 +69,10 @@ interface HomeProps {
 	onGoFavorites?: () => void;
 	onGoCart?: () => void;
 	onGoProfile?: () => void;
+	onGoProduct?: () => void;
 }
 
-const Home: React.FC<HomeProps> = ({onGoHome, onGoFavorites, onGoCart, onGoProfile}) => {
+const Home: React.FC<HomeProps> = ({onGoHome, onGoFavorites, onGoCart, onGoProfile, onGoProduct}) => {
 	const [search, setSearch] = useState('');
 	const [categories, setCategories] = useState<CategoryItem[]>(fallbackCategories);
 	const [specialOffers, setSpecialOffers] = useState<ProductItem[]>(fallbackOffers);
@@ -214,6 +215,7 @@ const Home: React.FC<HomeProps> = ({onGoHome, onGoFavorites, onGoCart, onGoProfi
 			onToggleFavorite={handleToggleFavorite}
 			onPressNotification={() => console.log('Notifications')}
 			activeTab="home"
+			onPressProduct={id => (onGoProduct ? onGoProduct() : console.log('Product detail', id))}
 			onPressHome={() => (onGoHome ? onGoHome() : console.log('Home'))}
 			onPressFavorites={() => (onGoFavorites ? onGoFavorites() : console.log('Favorites'))}
 			onPressCart={() => (onGoCart ? onGoCart() : console.log('Cart'))}
